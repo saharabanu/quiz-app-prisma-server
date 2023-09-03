@@ -17,17 +17,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1', routes);
 
-
 // for testing
 
 app.get('/', (req: Request, res: Response) => {
- 
   res.status(httpStatus.OK).json({
     success: true,
     message: 'API Works Successfully',
     messages: [
       {
-        path: "",
+        path: '',
         message: 'No Error Here ',
       },
     ],
