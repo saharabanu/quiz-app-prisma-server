@@ -6,7 +6,7 @@ import { OrderController } from './order.controller';
 const router = express.Router();
 
 router.get(
-  '/:id',
+  '/:orderId',
   auth(ENUM_USER_ROLE.CUSTOMER, ENUM_USER_ROLE.ADMIN),
   OrderController.getspecificOrder
 );

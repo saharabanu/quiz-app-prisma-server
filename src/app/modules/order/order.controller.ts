@@ -41,8 +41,8 @@ const getDataByIdFromDb: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getspecificOrder: RequestHandler = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = await OrderService.getspecificOrder(id, req.user);
+  const { orderId } = req.params;
+  const result = await OrderService.getspecificOrder(orderId, req.user);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
