@@ -20,7 +20,7 @@ const insertIntoDb: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-// get all categories
+// get all books
 const getAllDataFromDb: RequestHandler = catchAsync(async (req, res) => {
   const filters = pick(req.query, booksFilterableOptions);
   const options = pick(req.query, [
@@ -41,43 +41,67 @@ const getAllDataFromDb: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-// // get single category
-// const getDataByIdFromDb: RequestHandler = catchAsync(async (req, res) => {
-//   const { id } = req.params;
-//   const result = await CategoryService.getDataByIdFromDb(id);
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: ' Single category retrieved successfully',
-//     data: result,
-//   });
-// });
-// const updateDataByIDFromDb: RequestHandler = catchAsync(async (req, res) => {
-//   const { id } = req.params;
-//   const payload = req.body;
-//   const result = await CategoryService.updateDataByIdFromDb(id, payload);
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: '  category Updated successfully',
-//     data: result,
-//   });
-// });
-// const deleteDataFromDb: RequestHandler = catchAsync(async (req, res) => {
-//   const { id } = req.params;
-//   const result = await CategoryService.deleteDataFromDb(id);
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: ' category deleted successfully',
-//     data: result,
-//   });
-// });
+// get single category
+const getDataByIdFromDb: RequestHandler = catchAsync(async (req, res) => {
+  const { id } = req.params;
+
+  const result = await BookService.getDataByIdFromDb(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: ' Single book retrieved successfully',
+    data: result,
+  });
+});
+const updateDataByIDFromDb: RequestHandler = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const payload = req.body;
+  const result = await BookService.updateDataByIdFromDb(id, payload);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: '  book Updated successfully',
+    data: result,
+  });
+});
+const deleteDataFromDb: RequestHandler = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await BookService.deleteDataFromDb(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: ' book deleted successfully',
+    data: result,
+  });
+});
+
+// get books by category id
+const getBooksByCategoryId = catchAsync(async (req, res) => {
+  const options = pick(req.query, [
+    'limit',
+    'page',
+    'skip',
+    'sortBy',
+    'sortOrder',
+  ]);
+  const result = await BookService.getBooksByCategoryId(
+    req.params.categoryId,
+    options
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'books fetched successfully',
+    meta: result.meta,
+    data: result.data,
+  });
+});
 
 export const BookController = {
   insertIntoDb,
   getAllDataFromDb,
-  // getDataByIdFromDb,
-  // updateDataByIDFromDb,
-  // deleteDataFromDb,
+  getDataByIdFromDb,
+  updateDataByIDFromDb,
+  deleteDataFromDb,
+  getBooksByCategoryId,
 };

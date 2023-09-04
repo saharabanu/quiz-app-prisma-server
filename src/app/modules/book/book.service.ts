@@ -88,6 +88,7 @@ const getAllDataFromDb = async (
       category: true,
     },
     skip,
+
     take: limit,
   });
   if (!result) {
@@ -103,68 +104,120 @@ const getAllDataFromDb = async (
   };
 };
 
-// get a category by id
+// get a bookby id
 
-// const getDataByIdFromDb = async (id: string): Promise<Book | null> => {
-//   const result = await prisma.book.findUnique({
-//     where: {
-//       id,
-//     },
-//     include: {
-//       category: true,
-//     },
-//   });
+const getDataByIdFromDb = async (id: string): Promise<Book | null> => {
+  const result = await prisma.book.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      category: true,
+    },
+  });
 
-//   return result;
-// };
-// // update category
+  return result;
+};
+// update book
 
-// const updateDataByIdFromDb = async (
-//   id: string,
-//   payload: Partial<Book>
-// ): Promise<Book | null> => {
-//   const result = await prisma.book.update({
-//     where: {
-//       id,
-//     },
+const updateDataByIdFromDb = async (
+  id: string,
+  payload: Partial<Book>
+): Promise<Book | null> => {
+  const result = await prisma.book.update({
+    where: {
+      id,
+    },
 
-//     include: {
-//       category: true,
-//     },
-//     data: payload,
-//   });
+    include: {
+      category: true,
+    },
+    data: payload,
+  });
 
-//   return result;
-// };
+  return result;
+};
 
-// // delete category
+// delete book
 
-// const deleteDataFromDb = async (id: string): Promise<Book | null> => {
-//   const result = await prisma.$transaction(async transactionData => {
-//     await transactionData.category.deleteMany({
-//       where: {
-//         bookId: id,
-//       },
-//     });
+const deleteDataFromDb = async (id: string): Promise<Book | null> => {
+  let deletedBook: Book | null = null;
 
-//     const result = await transactionData.book.delete({
-//       where: {
-//         id,
-//       },
-//       include: {
-//         category: true,
-//       },
-//     });
-//     return result;
-//   });
+  await prisma.$transaction(async transactionData => {
+    const ordersWithBook = await transactionData.order.findMany({
+      where: {
+        orderedBooks: {
+          some: {
+            bookId: id,
+          },
+        },
+      },
+    });
+    await Promise.all(
+      ordersWithBook.map(async order => {
+        await transactionData.orderedBook.deleteMany({
+          where: {
+            orderId: order.id,
+            bookId: id,
+          },
+        });
+      })
+    );
+    deletedBook = await transactionData.book.delete({
+      where: {
+        id,
+      },
+      include: {
+        category: true,
+      },
+    });
+  });
 
-//   return result;
-// };
+  return deletedBook;
+};
+
+// get books by category id
+
+const getBooksByCategoryId = async (
+  id: string,
+  options: IPaginationOptions
+): Promise<IGenericResponse<Book[] | null>> => {
+  const { limit, skip, page } = paginationHelpers.calculatePagination(options);
+  const total = await prisma.book.count({
+    where: {
+      categoryId: {
+        equals: id,
+      },
+    },
+  });
+  const result = await prisma.book.findMany({
+    where: {
+      categoryId: {
+        equals: id,
+      },
+    },
+    skip,
+    take: limit,
+    include: {
+      category: true,
+    },
+  });
+
+  return {
+    meta: {
+      total,
+      page,
+      limit,
+    },
+    data: result,
+  };
+};
 
 export const BookService = {
   insertIntoDb,
   getAllDataFromDb,
-  // getDataByIdFromDb,
-  // updateDataByIdFromDb,
-  // deleteDataFromDb,
+  getDataByIdFromDb,
+  updateDataByIdFromDb,
+  deleteDataFromDb,
+  getBooksByCategoryId,
 };
