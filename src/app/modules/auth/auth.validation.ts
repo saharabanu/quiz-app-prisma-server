@@ -2,14 +2,28 @@ import z from 'zod';
 
 const create = z.object({
   body: z.object({
-    name: z.string(),
-    email: z.string().email(),
-    password: z.string(),
+    name: z.string({
+      required_error: ' name is required',
+    }),
+    email: z
+      .string({
+        required_error: ' email is required',
+      })
+      .email(),
+    password: z.string({
+      required_error: ' password is required',
+    }),
     role: z.enum(['admin', 'customer']),
-    contactNo: z.string(),
-    address: z.string(),
+    contactNo: z.string({
+      required_error: ' contactNo is required',
+    }),
+    address: z.string({
+      required_error: ' address is required',
+    }),
     //   profileImg: z.string().url(),
-    profileImg: z.string(),
+    profileImg: z.string({
+      required_error: ' profile img is required',
+    }),
   }),
 });
 const update = z.object({
