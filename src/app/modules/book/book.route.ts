@@ -15,5 +15,6 @@ router.post(
   validateRequest(BookValidation.create),
   BookController.insertIntoDb
 );
+router.get('/', auth(ENUM_USER_ROLE.ADMIN), BookController.getAllDataFromDb);
 
 export const BookRoutes = router;

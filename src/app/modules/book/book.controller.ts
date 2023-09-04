@@ -4,6 +4,8 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import httpStatus from 'http-status';
 import { BookService } from './book.service';
+import pick from '../../../shared/pick';
+import { booksFilterableOptions } from './book.constant';
 
 //  create category
 
@@ -18,16 +20,26 @@ const insertIntoDb: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-// // get all categories
-// const getAllDataFromDb: RequestHandler = catchAsync(async (req, res) => {
-//   const result = await CategoryService.getAllDataFromDb();
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: ' All categories retrieved successfully',
-//     data: result,
-//   });
-// });
+// get all categories
+const getAllDataFromDb: RequestHandler = catchAsync(async (req, res) => {
+  const filters = pick(req.query, booksFilterableOptions);
+  const options = pick(req.query, [
+    'limit',
+    'page',
+    'skip',
+    'sortBy',
+    'sortOrder',
+  ]);
+
+  const result = await BookService.getAllDataFromDb(filters, options);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: ' All books retrieved successfully',
+    meta: result.meta,
+    data: result.data,
+  });
+});
 
 // // get single category
 // const getDataByIdFromDb: RequestHandler = catchAsync(async (req, res) => {
@@ -64,7 +76,7 @@ const insertIntoDb: RequestHandler = catchAsync(async (req, res) => {
 
 export const BookController = {
   insertIntoDb,
-  // getAllDataFromDb,
+  getAllDataFromDb,
   // getDataByIdFromDb,
   // updateDataByIDFromDb,
   // deleteDataFromDb,
