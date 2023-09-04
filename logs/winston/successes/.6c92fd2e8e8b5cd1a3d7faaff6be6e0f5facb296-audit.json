@@ -24,6 +24,16 @@
             "date": 1693801042773,
             "name": "C:\\All-assignments-next-level\\prisma\\book-catalog-prisma-server\\logs\\winston\\successes\\phu-2023-04-09-10-success.log",
             "hash": "3a13b376dd8a0308cadbb45138541649d53249ca7eccfad6262f6d8dc6fa624b"
+        },
+        {
+            "date": 1693803606689,
+            "name": "C:\\All-assignments-next-level\\prisma\\book-catalog-prisma-server\\logs\\winston\\successes\\phu-2023-04-09-11-success.log",
+            "hash": "f40c1fcc7b8b4c7a1491aa3bf3f95debd815908bb84015935888b796ef87237f"
+        },
+        {
+            "date": 1693807775896,
+            "name": "C:\\All-assignments-next-level\\prisma\\book-catalog-prisma-server\\logs\\winston\\successes\\phu-2023-04-09-12-success.log",
+            "hash": "1117195aad761131eb9b64d28f2b0794cc706345472f5ac64f0fa175d0346c18"
         }
     ],
     "hashType": "sha256"
