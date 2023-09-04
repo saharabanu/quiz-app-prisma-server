@@ -27,6 +27,10 @@ const signUpUser = async (userData: User): Promise<User> => {
       ...userData,
       password: hashedPassword,
     },
+    include: {
+      orders: true,
+      reviews: true,
+    },
   });
 
   return newUser;

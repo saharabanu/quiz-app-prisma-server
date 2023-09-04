@@ -1,20 +1,30 @@
 {
-  "keep": {
-    "days": true,
-    "amount": 14
-  },
-  "auditLog": "C:\\All-assignments-next-level\\prisma\\book-catalog-prisma-server\\logs\\winston\\successes\\.6c92fd2e8e8b5cd1a3d7faaff6be6e0f5facb296-audit.json",
-  "files": [
-    {
-      "date": 1693739268902,
-      "name": "C:\\All-assignments-next-level\\prisma\\book-catalog-prisma-server\\logs\\winston\\successes\\phu-2023-03-09-17-success.log",
-      "hash": "37f7d1b1825ba133af593f373d2941f8634efcd792458d9b4b7224ed67b1e8f3"
+    "keep": {
+        "days": true,
+        "amount": 14
     },
-    {
-      "date": 1693742442160,
-      "name": "C:\\All-assignments-next-level\\prisma\\book-catalog-prisma-server\\logs\\winston\\successes\\phu-2023-03-09-18-success.log",
-      "hash": "f6a09ca14168d25788bdeeb8190b4024b5204f782d07ce9ffc7dfa7f9ea5fb90"
-    }
-  ],
-  "hashType": "sha256"
+    "auditLog": "C:\\All-assignments-next-level\\prisma\\book-catalog-prisma-server\\logs\\winston\\successes\\.6c92fd2e8e8b5cd1a3d7faaff6be6e0f5facb296-audit.json",
+    "files": [
+        {
+            "date": 1693739268902,
+            "name": "C:\\All-assignments-next-level\\prisma\\book-catalog-prisma-server\\logs\\winston\\successes\\phu-2023-03-09-17-success.log",
+            "hash": "37f7d1b1825ba133af593f373d2941f8634efcd792458d9b4b7224ed67b1e8f3"
+        },
+        {
+            "date": 1693742442160,
+            "name": "C:\\All-assignments-next-level\\prisma\\book-catalog-prisma-server\\logs\\winston\\successes\\phu-2023-03-09-18-success.log",
+            "hash": "f6a09ca14168d25788bdeeb8190b4024b5204f782d07ce9ffc7dfa7f9ea5fb90"
+        },
+        {
+            "date": 1693799555621,
+            "name": "C:\\All-assignments-next-level\\prisma\\book-catalog-prisma-server\\logs\\winston\\successes\\phu-2023-04-09-09-success.log",
+            "hash": "fe06fec87c8945efb2a320c6791bde2d37beebbba78c22221128b61e97589171"
+        },
+        {
+            "date": 1693801042773,
+            "name": "C:\\All-assignments-next-level\\prisma\\book-catalog-prisma-server\\logs\\winston\\successes\\phu-2023-04-09-10-success.log",
+            "hash": "3a13b376dd8a0308cadbb45138541649d53249ca7eccfad6262f6d8dc6fa624b"
+        }
+    ],
+    "hashType": "sha256"
 }
