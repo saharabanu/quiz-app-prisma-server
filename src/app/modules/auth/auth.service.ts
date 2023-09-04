@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { User } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 import ApiError from '../../../errors/ApiError';
@@ -6,6 +7,7 @@ import bcrypt from 'bcrypt';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import config from '../../../config';
 import { Secret } from 'jsonwebtoken';
+import { user } from './auth.interface';
 
 const signUpUser = async (userData: User): Promise<User> => {
   // Check if the email is already registered
@@ -70,7 +72,34 @@ export const SignInUser = async (userCredential: {
   return Token;
 };
 
+// profile
+
+const getUserProfile = async (token: any): Promise<user | null> => {
+  const { role, userId } = token;
+  const result = await prisma.user.findUnique({
+    where: {
+      id: userId,
+      role,
+    },
+
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      contactNo: true,
+      address: true,
+      profileImg: true,
+    },
+  });
+  if (!result) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'user not found');
+  }
+  return result;
+};
+
 export const AuthService = {
   signUpUser,
   SignInUser,
+  getUserProfile,
 };
