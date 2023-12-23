@@ -29,10 +29,7 @@ const signUpUser = async (userData: User): Promise<User> => {
       ...userData,
       password: hashedPassword,
     },
-    include: {
-      orders: true,
-      reviews: true,
-    },
+    
   });
 
   return newUser;
@@ -64,7 +61,8 @@ export const SignInUser = async (userCredential: {
 
   // create token
   const Token = jwtHelpers.createToken(
-    { role: existUser?.role, userId: existUser?.id },
+    {  userId: existUser?.id },
+    // { role: existUser?.role, userId: existUser?.id },
     config.jwt.secret as Secret,
     config.jwt.expires_in as string
   );
@@ -75,18 +73,19 @@ export const SignInUser = async (userCredential: {
 // profile
 
 const getUserProfile = async (token: any): Promise<user | null> => {
-  const { role, userId } = token;
+  // const { role, userId } = token;
+  const {  userId } = token;
   const result = await prisma.user.findUnique({
     where: {
       id: userId,
-      role,
+      // role,
     },
 
     select: {
       id: true,
       name: true,
       email: true,
-      role: true,
+      // role: true,
       contactNo: true,
       address: true,
       profileImg: true,

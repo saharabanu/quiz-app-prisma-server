@@ -47,10 +47,24 @@ const deleteDataFromDb: RequestHandler = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const createUser2: RequestHandler = catchAsync(async (req, res) => {
+  
+  const result = await UserService.CreateUser2();
+  console.log(result)
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: ' User created successfully',
+    data: result,
+  });
+});
+
+
 
 export const UserController = {
   getAllDataFromDb,
   getDataByIdFromDb,
   updateDataByIDFromDb,
   deleteDataFromDb,
+  createUser2
 };

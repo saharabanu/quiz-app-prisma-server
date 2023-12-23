@@ -3,6 +3,15 @@ import prisma from '../../../shared/prisma';
 
 // get all user
 
+const CreateUser2 = async () => {
+  const postUser2 = await prisma.user1.create({
+    data:{
+      email:'abc@gmail.com',
+      name:"abc"
+    }
+  });
+  return postUser2
+};
 const getAllDataFromDb = async (): Promise<User[] | null> => {
   const result = await prisma.user.findMany({
     include: {
@@ -87,7 +96,10 @@ const deleteDataFromDb = async (id: string): Promise<User | null> => {
   return result;
 };
 
+
+
 export const UserService = {
+  CreateUser2,
   getAllDataFromDb,
   getDataByIdFromDb,
   updateDataByIdFromDb,

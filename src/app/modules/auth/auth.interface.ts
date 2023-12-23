@@ -1,10 +1,10 @@
-import { Role } from '@prisma/client';
+// import { Role } from '@prisma/client';
 
 export type user = {
   id: string;
   name: string;
   email: string;
-  role: Role;
+  // role: Role;
   contactNo: string;
   address: string;
   profileImg: string;

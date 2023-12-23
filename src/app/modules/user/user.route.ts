@@ -24,5 +24,6 @@ router.delete(
   UserController.deleteDataFromDb
 );
 router.get('/', UserController.getAllDataFromDb);
+router.post('/', UserController.createUser2);
 
 export const UserRoutes = router;
