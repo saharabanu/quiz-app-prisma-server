@@ -13,7 +13,7 @@ const create = z.object({
     password: z.string({
       required_error: ' password is required',
     }),
-    role: z.enum(['admin', 'customer']),
+    // role: z.enum(['admin', 'customer']),
     contactNo: z.string({
       required_error: ' contactNo is required',
     }),
@@ -31,7 +31,7 @@ const update = z.object({
     name: z.string().optional(),
     email: z.string().email().optional(),
     password: z.string().optional(),
-    role: z.enum(['admin', 'customer']).optional(),
+    // role: z.enum(['admin', 'customer']).optional(),
     contactNo: z.string().optional(),
     address: z.string().optional(),
     profileImg: z.string().optional(),
